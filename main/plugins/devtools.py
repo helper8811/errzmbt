@@ -5,10 +5,26 @@
 import io
 import sys
 import traceback
+import requests
 from os import remove
 
 from .. import Drone
 from ethon.pyfunc import bash
+
+async def aexec(code, event):
+    exec(
+        (
+            (
+                ("async def __aexec(e, client): " + "\n message = event = e")
+                + "\n reply = await event.get_reply_message()"
+            )
+            + "\n chat = (await event.get_chat()).id"
+        )
+        + "".join(f"\n {l}" for l in code.split("\n"))
+    )
+
+    return await locals()["__aexec"](event, event.client)
+
 
 def get_paste(data):
     try:
@@ -25,7 +41,7 @@ def get_paste(data):
         return "neko", key
 
       
-async def _(event):
+async def bash_command(event):
     xx = await eor(event, get_string("com_1"))
     try:
         cmd = event.text.split(" ", maxsplit=1)[1]
@@ -46,7 +62,7 @@ async def _(event):
         OUT += "**• OUTPUT:**\n`Success`"      
         
         
-async def _(event):
+async def eval(event):
     if len(event.text) > 5 and event.text[5] != " ":
         return await event.reply("insufficient code len.")
     try:
@@ -77,7 +93,7 @@ async def _(event):
     elif stdout:
         evaluation = stdout
     else:
-        evaluation = get_string("instu_4")
+        evaluation = "success"
     final_output = (
         "__►__ **EVALPy**\n```{}``` \n\n __►__ **OUTPUT**: \n```{}``` \n".format(
             cmd,
