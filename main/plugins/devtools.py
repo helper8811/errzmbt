@@ -13,28 +13,14 @@ from ethon.pyfunc import bash
 from telethon import *
 
 JPG='./Caterpillar Aerial Mapping System Concept.jpeg'
-
-async def aexec(code, event):
-    exec(
-        (
-            (
-                ("async def __aexec(e, client): " + "\n message = event = e")
-                + "\n reply = await event.get_reply_message()"
-            )
-            + "\n chat = (await event.get_chat()).id"
-        )
-        + "".join(f"\n {l}" for l in code.split("\n"))
-    )
-
-    return await locals()["__aexec"](event, event.client)
-
+ 
 @CA.on(events.NewMessage(incoming=True, from_users=AUTH_USERS , pattern="!bash"))
 async def bash_command(event):
     xx = await event.reply('Running.')
     try:
         cmd = event.text.split(" ", maxsplit=1)[1]
     except IndexError:
-        return await eor(xx, get_string("devs_1"), time=10)
+        return await event.reply("Insufficient code len.")
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
