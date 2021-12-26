@@ -7,9 +7,12 @@ import sys
 import traceback
 from os import remove
 
-from .. import CA
+from .. import bot as CA
+from .. import AUTH_USERS
 from ethon.pyfunc import bash
 from telethon import *
+
+JPG='./Caterpillar Aerial Mapping System Concept.jpeg'
 
 async def aexec(code, event):
     exec(
