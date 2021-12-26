@@ -24,7 +24,7 @@ async def bash_command(event):
     reply_to_id = event.message.id
     if event.reply_to_msg_id:
         reply_to_id = event.reply_to_msg_id
-    stdout, stderr = await bash(cmd)
+    stdout, stderr = bash(cmd)
     OUT = f"**☞ BASH\n\n• COMMAND:**\n`{cmd}` \n\n"
     if stderr:
         OUT += f"**• ERROR:** \n`{stderr}`\n\n"
@@ -69,10 +69,7 @@ async def eval(event):
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
     reply_to_id = event.message.id
-    try:
-        await aexec(cmd, event)
-    except Exception:
-        exc = traceback.format_exc()
+    exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
