@@ -42,7 +42,7 @@ def get_paste(data):
 
       
 async def bash_command(event):
-    xx = await eor(event, get_string("com_1"))
+    xx = await event.reply('Running.')
     try:
         cmd = event.text.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -60,7 +60,23 @@ async def bash_command(event):
         OUT += f"**• OUTPUT:**\n`{o}`"
     if not stderr and not stdout:
         OUT += "**• OUTPUT:**\n`Success`"      
-        
+    if len(OUT) > 4096:
+        ultd = OUT.replace("`", "").replace("**", "").replace("__", "")
+        with io.BytesIO(str.encode(ultd)) as out_file:
+            out_file.name = "bash.txt"
+            await event.client.send_file(
+                event.chat_id,
+                out_file,
+                force_document=True,
+                thumb="resources/extras/ultroid.jpg",
+                allow_cache=False,
+                caption=f"`{cmd}`" if len(cmd) < 998 else None,
+                reply_to=reply_to_id,
+            )
+
+            await xx.delete()
+    else:
+        await xx.edit(OUT)   
         
 async def eval(event):
     if len(event.text) > 5 and event.text[5] != " ":
@@ -100,3 +116,21 @@ async def eval(event):
             evaluation,
         )
     )  
+    if len(final_output) > 4096:
+        ultd = final_output.replace("`", "").replace("**", "").replace("__", "")
+        with io.BytesIO(str.encode(ultd)) as out_file:
+            out_file.name = "eval.txt"
+            await event.client.send_file(
+                event.chat_id,
+                out_file,
+                force_document=True,
+                thumb="resources/extras/ultroid.jpg",
+                allow_cache=False,
+                caption=f"```{cmd}```" if len(cmd) < 998 else None,
+                reply_to=reply_to_id,
+            )
+            await xx.delete()
+    else:
+        await xx.edit(final_output)
+
+        
