@@ -1,2 +1,5 @@
 python-decouple
 telethon
+cryptg
+telethon-tgcrypto
+ethon
