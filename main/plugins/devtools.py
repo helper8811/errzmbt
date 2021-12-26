@@ -5,11 +5,11 @@
 import io
 import sys
 import traceback
-import requests
 from os import remove
 
-from .. import Drone
+from .. import CA
 from ethon.pyfunc import bash
+from telethon import *
 
 async def aexec(code, event):
     exec(
@@ -25,22 +25,7 @@ async def aexec(code, event):
 
     return await locals()["__aexec"](event, event.client)
 
-
-def get_paste(data):
-    try:
-        resp = requests.post("https://hastebin.com/documents", data=data).content
-        key = loads(resp)["key"]
-        return "haste", key
-    except BaseException:
-        key = (
-            requests.post("https://nekobin.com/api/documents", json={"content": data})
-            .json()
-            .get("result")
-            .get("key")
-        )
-        return "neko", key
-
-      
+@Drone.on(events.NewMessage(incoming=True, from_users=AUTH_USERS , pattern="!bash"))
 async def bash_command(event):
     xx = await event.reply('Running.')
     try:
@@ -77,7 +62,8 @@ async def bash_command(event):
             await xx.delete()
     else:
         await xx.edit(OUT)   
-        
+
+@Drone.on(events.NewMessage(incoming=True, from_users=AUTH_USERS , pattern="!eval"))        
 async def eval(event):
     if len(event.text) > 5 and event.text[5] != " ":
         return await event.reply("insufficient code len.")
