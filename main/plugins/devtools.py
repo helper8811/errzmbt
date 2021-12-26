@@ -14,6 +14,21 @@ from telethon import *
 
 JPG='./Caterpillar Aerial Mapping System Concept.jpeg'
  
+async def aexec(code, event):
+    exec(
+        (
+            (
+                ("async def __aexec(e, client): " + "\n message = event = e")
+                + "\n reply = await event.get_reply_message()"
+            )
+            + "\n chat = event.chat_id"
+        )
+        + "".join(f"\n {l}" for l in code.split("\n"))
+    )
+
+    return await locals()["__aexec"](event, event.client)
+
+ 
 @CA.on(events.NewMessage(incoming=True, from_users=AUTH_USERS , pattern="!bash"))
 async def bash_command(event):
     xx = await event.reply('Running.')
@@ -69,7 +84,10 @@ async def eval(event):
     redirected_error = sys.stderr = io.StringIO()
     stdout, stderr, exc = None, None, None
     reply_to_id = event.message.id
-    exc = traceback.format_exc()
+    try:
+        await aexec(cmd, event)
+    except Exception:
+        exc = traceback.format_exc()
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
