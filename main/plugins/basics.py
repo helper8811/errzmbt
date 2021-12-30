@@ -3,7 +3,8 @@
 
 from .. import CA
 from telethon import events
-from main.plugins.stuff import chat
+
+chat = '@teamdrone'
 
 @CA.on(events.NewMessage(incoming=True, from_users=AUTH_USERS , pattern="!rly"))
 async def reply(event):
