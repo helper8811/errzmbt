@@ -1,7 +1,7 @@
 #tg:ChauhanMahesh/DroneBots
 #github.com/vasusen-code
 
-from .. import bot as CA
+from .. import bot as CA, AUTH_USERS
 from telethon import events
 
 chat = '@teamdrone'
