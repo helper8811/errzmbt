@@ -28,18 +28,8 @@ async def msg(event):
     except Exception:
         return await event.reply("No msg id found.")
     await event.client.send_message(msg_id, x)
-    
-  async def get_joiner(id):
-    ok = True
-    try:
-        await Asst(GetParticipantRequest(channel=int(chat), participant=id))
-        ok = True
-    except UserNotParticipantError:
-        ok = False
-    return ok
-
+ 
 #Welcome-------------------------------------------------------------------------
-
 
 async def get_joiner(id):
     x = True
