@@ -44,18 +44,18 @@ async def get_joiner(id):
 async def joined(event):
     if event.user_joined or event.user_added:
         user = await event.get_user()
-    firstname = user.first_name
-    mention = user.username
-    if not mention:    
-        mention = f"[{firstname}](tg://user?id={user.id})"
-    x = await get_joiner(user.id)
-    if x is True:
-        await CA.send_message(chat , f'`ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴅʀᴏɴᴇ sᴜᴘᴘᴏʀᴛ`\n\n👤 : {mention}\n\n🆔 : `{user.id}`\n\nGreetings by @MaheshChauhan.',
-                             buttons=[
-                                 [
-                                  Button.url("Association", url="t.me/thechariotoflight"),
-                                  Button.url("Updates", url="t.me/DroneBots")]])                                              
-    else:
-        return  
+        firstname = user.first_name
+        mention = user.username
+        if not user.username:    
+            mention = f"[{firstname}](tg://user?id={user.id})"
+        x = await get_joiner(user.id)
+        if x is True:
+            await CA.send_message(chat , f'`ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴅʀᴏɴᴇ sᴜᴘᴘᴏʀᴛ`\n\n👤 : {mention}\n\n🆔 : `{user.id}`\n\nGreetings by @MaheshChauhan.',
+                                 buttons=[
+                                     [
+                                      Button.url("Association", url="t.me/thechariotoflight"),
+                                      Button.url("Updates", url="t.me/DroneBots")]])                                              
+        else:
+            return  
     
     
