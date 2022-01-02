@@ -3,7 +3,7 @@
 
 from .. import bot as CA, AUTH_USERS
 from .. import CHAT as chat
-from telethon import events
+from telethon import events, Button
 from telethon.errors.rpcerrorlist import UserNotParticipantError
 from telethon.tl.functions.channels import GetParticipantRequest
 
