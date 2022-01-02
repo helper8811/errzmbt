@@ -34,7 +34,7 @@ async def msg(event):
 async def get_joiner(id):
     x = True
     try:
-        await Asst(GetParticipantRequest(channel=int(chat), participant=id))
+        await CA(GetParticipantRequest(channel=int(chat), participant=id))
         x = True
     except UserNotParticipantError:
         x = False
