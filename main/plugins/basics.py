@@ -40,7 +40,6 @@ async def msg(event):
 
 #Welcome-------------------------------------------------------------------------
 
-@CA.on(events.ChatAction(chats=chat))
 
 async def get_joiner(id):
     x = True
@@ -51,6 +50,7 @@ async def get_joiner(id):
         x = False
     return x
 
+@CA.on(events.ChatAction(chats=chat))
 async def joined(event):
     if event.user_joined or event.user_added:
         user = await event.get_user()
