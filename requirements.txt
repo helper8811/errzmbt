@@ -1,5 +1,5 @@
 python-decouple
-markdown_it
+markdown-it-py
 https://github.com/vasusen-code/Telethon/archive/refs/tags/v1.0.0.tar.gz
 cryptg
 telethon-tgcrypto
