@@ -19,9 +19,3 @@ CHAT = config("CHAT", default=None, cast=int)
 #connection
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
 
-client = TelegramClient(StringSession(SESSION) , API_ID, API_HASH)
-try:
-    client.start()
-except BaseException:
-    print("Userbot Error ! Have you added a STRING_SESSION in deploying??")
-    
