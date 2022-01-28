@@ -1,5 +1,5 @@
 python-decouple
-git+git://github.com/SpEcHiDe/Telethon@72afe59#egg=telethon
+https://github.com/vasusen-code/Telethon/archive/refs/tags/v1.0.0.tar.gz
 cryptg
 telethon-tgcrypto
 ethon
