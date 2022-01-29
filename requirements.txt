@@ -1,6 +1,6 @@
 python-decouple
 markdown-it-py
-https://github.com/vasusen-code/Telethon/archive/refs/tags/v1.0.0.tar.gz
+git+https://github.com/LonamiWebs/Telethon
 cryptg
 telethon-tgcrypto
 ethon
