@@ -40,9 +40,9 @@ async def bash_command(event):
     for line in lines:
         if 'http' in line:
             links.append(line)
-    for link in links:
+    for i in range(len(links)):
          try: 
-             i = links.index(link)
+             link = links[i]
              date_list = link.split("/")
              date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
              a = link.split(start)[1]
