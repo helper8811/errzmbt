@@ -36,20 +36,19 @@ async def bash_command(event):
     await reply.edit("Processing!")
     text_file = open(file)
     lines = text_file.readlines()
-    i = 0
-    print(lines)
+    links = []
     for line in lines:
+        if 'http' in line:
+            links.append(line)
+    for link in links:
          try: 
-             if line == '\n' or '\n\n':
-                 return 
-             if 'http' in line:
-                 i += 1
-                 date_list = line.split("/")
-                 date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
-                 a = line.split(start)[1]
-                 link = a.split(end)[0]
-                 final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + '`https://api.zoom.us/rec/play/' + link + '`'
-                 await event.client.send_message(event.chat_id, final) 
+             i = links.index(link)
+             date_list = link.split("/")
+             date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
+             a = link.split(start)[1]
+             hash = a.split(end)[0]
+             final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + '`https://api.zoom.us/rec/play/' + hash + '`'
+             await event.client.send_message(event.chat_id, final) 
          except Exception as e:
              print(e)
              return await event.client.send_message(event.chat_id, f'Link no: {i} Failed!')       
