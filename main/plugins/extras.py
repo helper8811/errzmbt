@@ -50,7 +50,7 @@ async def bash_command(event):
              for links in a:
                  link = links.split(end)[0]
                  if not '/' in link:
-                     final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + link
+                     final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + '`https://api.zoom.us/rec/play/' + link + '`'
                      await event.client.send_message(event.chat_id, final) 
          except Exception as e:
              print(e)
