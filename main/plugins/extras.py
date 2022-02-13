@@ -36,7 +36,7 @@ async def screenshot(video, time_stamp, sender):
         None
         
 @CA.on(events.NewMessage(incoming=True, pattern=".exzoom"))
-async def bash_command(event):
+async def exzoom(event):
     if not f'{event.sender_id}' in AUTH:
         return
     if not event.is_reply:
@@ -76,7 +76,7 @@ async def bash_command(event):
              return await event.client.send_message(event.chat_id, f'Link no: {i + 1} Failed!')       
                           
 @CA.on(events.NewMessage(incoming=True, pattern=".bzoom"))
-async def bash_command(event):
+async def bzoom(event):
     if not f'{event.sender_id}' in AUTH:
         return
     if not event.is_reply:
