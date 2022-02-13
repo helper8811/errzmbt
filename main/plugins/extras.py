@@ -1,7 +1,17 @@
 from telethon import events
 import os
 from .. import bot as CA
-from .. import AUTH 
+from .. import AU
+
+AUTH_USERS = []
+y = AU.split(",")
+for id in y:
+    AUTH_USERS.append(int(id))
+    
+AUTH = []
+x = AU.split(",")
+for id in x:
+    AUTH.append(id)
 
 @CA.on(events.NewMessage(incoming=True, pattern=".exzoom"))
 async def bash_command(event):
