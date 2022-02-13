@@ -13,13 +13,18 @@ API_ID = config("API_ID", default=None, cast=int)
 API_HASH = config("API_HASH", default=None)
 BOT_TOKEN = config("BOT_TOKEN", default=None)
 SESSION = config("SESSION", default=None)
-AUTH_USERS = config("AUTH_USERS", default=None)
+AU = config("AUTH_USERS", default=None)
 CHAT = config("CHAT", default=None, cast=int)
 
+AUTH_USERS = []
+y = AU.split(",")
+for id in y:
+    AUTH_USERS.append(int(id))
+    
 AUTH = []
-x = AUTH_USERS.split(",")
+x = AU.split(",")
 for id in x:
-    AUTH.append(int(id))
+    AUTH.append(id)
     
 #connection
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
