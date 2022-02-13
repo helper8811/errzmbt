@@ -1,23 +1,40 @@
-from telethon import events
-import os, time
+import os, time, subprocess, asyncio
+
 from .. import bot as CA
 from .. import AU
 
 from ethon.uploader import ytdl, weburl
 from ethon.pyfunc import video_metadata
 from ethon.telefunc import fast_upload
-from telethon.tl.types import DocumentAttributeVideo
 
-AUTH_USERS = []
-y = AU.split(",")
-for id in y:
-    AUTH_USERS.append(int(id))
+from telethon import events
+from telethon.tl.types import DocumentAttributeVideo
     
 AUTH = []
 x = AU.split(",")
 for id in x:
     AUTH.append(id)
-
+    
+async def screenshot(video, time_stamp, sender):
+    if os.path.exists(f'{sender}.jpg'):
+        return f'{sender}.jpg'
+    out = str(video).split(".")[0] + ".jpg"
+    cmd = (f"ffmpeg -ss {time_stamp} -i {video} -vframes 1 {out} -y").split(" ")
+    process = await asyncio.create_subprocess_exec(
+         *cmd,
+         stdout=asyncio.subprocess.PIPE,
+         stderr=asyncio.subprocess.PIPE)
+        
+    stdout, stderr = await process.communicate()
+    x = stderr.decode().strip()
+    y = stdout.decode().strip()
+    print(x)
+    print(y)
+    if os.path.exists(str(Path(out))):
+        return out
+    else:
+        None
+        
 @CA.on(events.NewMessage(incoming=True, pattern=".exzoom"))
 async def bash_command(event):
     if not f'{event.sender_id}' in AUTH:
@@ -101,10 +118,11 @@ async def bash_command(event):
              height = metadata["height"]
              duration = metadata["duration"]
              attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, supports_streaming=True)]
+             thumb = await screenshot(filename, duration/2, event.sender_id)
              UT = time.time()
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
-             await Drone.send_file(event.chat_id, uploader, caption=caption, thumb=screenshot, attributes=attributes, force_document=False)
+             await Drone.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
              await reply.edit("Sleeping for 5 seconds!")
              time.sleep(5)
          except Exception as e:
