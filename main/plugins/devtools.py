@@ -8,10 +8,20 @@ import traceback
 from os import remove
 
 from .. import bot as CA
-from .. import AUTH 
+from .. import AU 
 from ethon.pyfunc import bash
 from telethon import *
 
+AUTH_USERS = []
+y = AU.split(",")
+for id in y:
+    AUTH_USERS.append(int(id))
+    
+AUTH = []
+x = AU.split(",")
+for id in x:
+    AUTH.append(id)
+  
 JPG='./Caterpillar Aerial Mapping System Concept.jpeg'
  
 async def aexec(code, event):
