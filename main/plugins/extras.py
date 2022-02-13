@@ -37,7 +37,7 @@ async def bash_command(event):
     await reply.edit("Processing!")
     for line in lines:
          i = lines.index(line)              
-         if not 'zoom' in link:
+         if not 'zoom' in line:
              return await event.client.send_message(event.chat_id, f'Link no: {i} Failed!') 
          try:                 
              date_list = line.split("/")
