@@ -35,9 +35,9 @@ async def bash_command(event):
     file = await event.client.download_media(x.media)
     await reply.edit("Processing!")
     text_file = open(file, "r")
-    lines = (text_file.read()).split("\n")
+    lines = text_file.read()
     i = 0
-    for line in lines:
+    for line in lines.split("\n"):
          try: 
              if 'http' in line:
                  i += 1
