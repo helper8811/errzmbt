@@ -8,7 +8,7 @@ import traceback
 from os import remove
 
 from .. import bot as CA
-from .. import AUTH_USERS
+from .. import AUTH as AUTH_USERS
 from ethon.pyfunc import bash
 from telethon import *
 
