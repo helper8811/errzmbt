@@ -3,6 +3,6 @@ markdown-it-py
 telethon
 cryptg
 telethon-tgcrypto
-ethon
+ethon==1.3.5
 pyrogram 
 tgcrypto
