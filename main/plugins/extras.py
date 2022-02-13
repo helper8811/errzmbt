@@ -38,8 +38,10 @@ async def bash_command(event):
     lines = text_file.readlines()
     i = 0
     print(lines)
-    for line in lines.split("\n"):
+    for line in lines:
          try: 
+             if line == '\n' or '\n\n':
+                 return 
              if 'http' in line:
                  i += 1
                  date_list = line.split("/")
