@@ -34,7 +34,9 @@ async def bash_command(event):
     reply = await event.reply("Downloading!")          
     file = await event.client.download_media(x.media)
     await reply.edit("Processing!")
-    lines = (open(file)).readlines() 
+    xx = (open(file)).read()
+    lines = xx.split(" ")
+    i = 0
     for line in lines:
          try: 
              if 'https' in line:
