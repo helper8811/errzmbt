@@ -34,9 +34,10 @@ async def bash_command(event):
     reply = await event.reply("Downloading!")          
     file = await event.client.download_media(x.media)
     await reply.edit("Processing!")
-    text_file = open(file, "r")
-    lines = text_file.read()
+    text_file = open(file)
+    lines = text_file.readlines()
     i = 0
+    print(lines)
     for line in lines.split("\n"):
          try: 
              if 'http' in line:
@@ -45,9 +46,8 @@ async def bash_command(event):
                  date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
                  a = line.split(start)[1]
                  link = a.split(end)[0]
-                 if not '/' in link:
-                     final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + '`https://api.zoom.us/rec/play/' + link + '`'
-                     await event.client.send_message(event.chat_id, final) 
+                 final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + '`https://api.zoom.us/rec/play/' + link + '`'
+                 await event.client.send_message(event.chat_id, final) 
          except Exception as e:
              print(e)
              return await event.client.send_message(event.chat_id, f'Link no: {i} Failed!')       
