@@ -16,7 +16,22 @@ async def bash_command(event):
         return await event.reply("Incorrect format.")    
     if not '.txt' in x.file.name:
         return await event.reply("Reply to a txt file only!")
-    await event.reply("Downloading!")          
+    reply = await event.reply("Downloading!")          
     file = await event.client.download_media(x.media)
     lines = file.readlines()   
+    for line in lines:
+         i = lines.index(line)              
+         if not 'zoom' in link:
+             return
+         try:                 
+             date_list = line.split("/")
+             date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
+             a = line.split(start)
+             for links in a:
+                 link = links.split(end)[0]
+                 if not '/' in link:
+                     final = 'link no:' + i + '\n\n' + date + '\n\n' + link
+                     await event.client.send_message(event.chat_id, final) 
+         except Exception:
+             return              
                           
