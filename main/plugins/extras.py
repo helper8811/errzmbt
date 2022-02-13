@@ -3,8 +3,10 @@ import os
 from .. import bot as CA
 from .. import AUTH 
 
-@CA.on(events.NewMessage(incoming=True, from_users=AUTH, pattern=".exzoom"))
+@CA.on(events.NewMessage(incoming=True, pattern=".exzoom"))
 async def bash_command(event):
+    if not f'{event.sender_id}' in AUTH:
+        return
     if not event.is_reply:
         await event.reply("Reply to any txt file!")
         return
