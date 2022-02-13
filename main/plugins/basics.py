@@ -1,12 +1,22 @@
 #tg:ChauhanMahesh/DroneBots
 #github.com/vasusen-code
 
-from .. import bot as CA, AUTH_USERS
+from .. import bot as CA, AU
 from .. import CHAT as chat
 from telethon import events, Button
 from telethon.errors.rpcerrorlist import UserNotParticipantError
 from telethon.tl.functions.channels import GetParticipantRequest
 
+AUTH_USERS = []
+y = AU.split(",")
+for id in y:
+    AUTH_USERS.append(int(id))
+    
+AUTH = []
+x = AU.split(",")
+for id in x:
+    AUTH.append(id)
+    
 @CA.on(events.NewMessage(incoming=True, from_users=AUTH_USERS , pattern="!rly"))
 async def reply(event):
     x = await event.get_reply_message()
