@@ -18,11 +18,12 @@ async def bash_command(event):
         return await event.reply("Reply to a txt file only!")
     reply = await event.reply("Downloading!")          
     file = await event.client.download_media(x.media)
-    lines = file.readlines()   
+    lines = file.readlines() 
+    await reply.edit("Processing!")
     for line in lines:
          i = lines.index(line)              
          if not 'zoom' in link:
-             return
+             return await event.client.send_message(event.chat_id, f'Link no: {i} Failed!') 
          try:                 
              date_list = line.split("/")
              date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
@@ -32,6 +33,7 @@ async def bash_command(event):
                  if not '/' in link:
                      final = 'link no:' + i + '\n\n' + date + '\n\n' + link
                      await event.client.send_message(event.chat_id, final) 
-         except Exception:
-             return              
+         except Exception as e:
+             print(e)
+             return await event.client.send_message(event.chat_id, f'Link no: {i} Failed!')       
                           
