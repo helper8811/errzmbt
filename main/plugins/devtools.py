@@ -8,7 +8,7 @@ import traceback
 from os import remove
 
 from .. import bot as CA
-from .. import AUTH as AUTH_USERS
+from .. import AUTH 
 from ethon.pyfunc import bash
 from telethon import *
 
@@ -29,8 +29,10 @@ async def aexec(code, event):
     return await locals()["__aexec"](event, event.client)
 
  
-@CA.on(events.NewMessage(incoming=True, from_users=AUTH_USERS , pattern="!bash"))
+@CA.on(events.NewMessage(incoming=True, pattern="!bash"))
 async def bash_command(event):
+    if not f'{event.sender_id}' in AUTH:
+        return
     xx = await event.reply('Running.')
     try:
         cmd = event.text.split(" ", maxsplit=1)[1]
