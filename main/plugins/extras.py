@@ -36,7 +36,11 @@ async def bash_command(event):
     lines = (open(file)).readlines() 
     await reply.edit("Processing!")
     for line in lines:
-         i = lines.index(line)              
+         i = 0
+         if not 'https' in line:
+             return
+         if 'https' in line:
+             i += 1
          if not 'zoom' in line:
              return await event.client.send_message(event.chat_id, f'Link no: {i} Failed\n\nNo zoom link found!') 
          try:                 
