@@ -43,12 +43,11 @@ async def bash_command(event):
                  i += 1
                  date_list = line.split("/")
                  date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
-                 a = line.split(start)
-                 for links in a:
-                     link = links.split(end)[0]
-                     if not '/' in link:
-                         final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + '`https://api.zoom.us/rec/play/' + link + '`'
-                         await event.client.send_message(event.chat_id, final) 
+                 a = line.split(start)[1]
+                 link = a.split(end)[0]
+                 if not '/' in link:
+                     final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + '`https://api.zoom.us/rec/play/' + link + '`'
+                     await event.client.send_message(event.chat_id, final) 
          except Exception as e:
              print(e)
              return await event.client.send_message(event.chat_id, f'Link no: {i} Failed!')       
