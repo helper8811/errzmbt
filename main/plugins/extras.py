@@ -35,7 +35,7 @@ async def bash_command(event):
     file = await event.client.download_media(x.media)
     await reply.edit("Processing!")
     text_file = open(file, "r")
-    lines = text_file.readlines()
+    lines = (text_file.read()).split("\n")
     i = 0
     for line in lines:
          try: 
