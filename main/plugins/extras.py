@@ -100,18 +100,24 @@ async def bzoom(event):
     text_file = open(file)
     lines = text_file.readlines()
     links = []
+    date = ""
+    zoom_dl = ""
     for line in lines:
         if 'http' in line:
             links.append(line)
     for i in range(len(links)):
          try: 
-             link = links[i]
-             date_list = link.split("/")
-             date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
-             a = link.split(start)[1]
-             hash = a.split(end)[0]
+             try:
+                 link = links[i]
+                 date_list = link.split("/")
+                 date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
+                 a = link.split(start)[1]
+                 hash = a.split(end)[0]
+                 zoom_dl = 'https://api.zoom.us/rec/play/' + hash
+             except Exception:
+                 date = 'unkown'
+                 zoom_dl = links[i]
              await reply.edit(f"Downloading Zoom file\n\nIndex: `{(i + 1)}`\nDate: `{date}`")
-             zoom_dl = 'https://api.zoom.us/rec/play/' + hash
              filename = await ytdl(zoom_dl)
              await reply.edit("Preparing to Upload!")
              metadata = video_metadata(filename)
@@ -128,5 +134,6 @@ async def bzoom(event):
              time.sleep(5)
          except Exception as e:
              print(e)
-             return await event.client.send_message(event.chat_id, f'Link no: {i + 1} Failed!')       
-                          
+             return await event.client.send_message(event.chat_id, f'Link no: {i + 1} Failed!')             
+    await reply.delete()
+    await event.client.send_message(event.chat_id, f'`{len(links)}` uploaded Successfully!')
