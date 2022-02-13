@@ -6,7 +6,7 @@ from .. import AUTH
 @CA.on(events.NewMessage(incoming=True, from_users=AUTH, pattern=".exzoom"))
 async def bash_command(event):
     if not event.is_reply:
-        await event.reply('Reply to any txt file!")
+        await event.reply("Reply to any txt file!")
         return
     x = await event.get_reply_message()
     try:
