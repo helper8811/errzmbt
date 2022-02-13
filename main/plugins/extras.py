@@ -38,7 +38,7 @@ async def bash_command(event):
     for line in lines:
          i = lines.index(line)              
          if not 'zoom' in line:
-             return await event.client.send_message(event.chat_id, f'Link no: {i} Failed!') 
+             return await event.client.send_message(event.chat_id, f'Link no: {i} Failed\n\nNo zoom link found!') 
          try:                 
              date_list = line.split("/")
              date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
@@ -46,7 +46,7 @@ async def bash_command(event):
              for links in a:
                  link = links.split(end)[0]
                  if not '/' in link:
-                     final = 'link no:' + i + '\n\n' + date + '\n\n' + link
+                     final = 'link no:' + str(i) + '\n\n' + date + '\n\n' + link
                      await event.client.send_message(event.chat_id, final) 
          except Exception as e:
              print(e)
