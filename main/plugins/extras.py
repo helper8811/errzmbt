@@ -38,7 +38,7 @@ async def bash_command(event):
     i = 0
     for line in lines:
          try: 
-             if 'https' in line:
+             if 'http' in line:
                  i += 1
                  date_list = line.split("/")
                  date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
