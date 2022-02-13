@@ -19,7 +19,7 @@ CHAT = config("CHAT", default=None, cast=int)
 AUTH = []
 x = AUTH_USERS.split(",")
 for id in x:
-    AUTH.append(id)
+    AUTH.append(int(id))
     
 #connection
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
