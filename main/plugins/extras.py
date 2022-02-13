@@ -42,8 +42,6 @@ async def bash_command(event):
     lines = string.split("http")
     for line in lines:
          i += 1
-         if not 'zoom' in line:
-             return await event.client.send_message(event.chat_id, f'Link no: {i} Failed\n\nNo zoom link found!') 
          try:                 
              date_list = line.split("/")
              date = date_list[4] + '-' + date_list[5] + '-' + date_list[6]     
