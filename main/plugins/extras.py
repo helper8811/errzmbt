@@ -1,7 +1,12 @@
 from telethon import events
-import os
+import os, time
 from .. import bot as CA
 from .. import AU
+
+from ethon.uploader import ytdl, weburl
+from ethon.pyfunc import video_metadata
+from ethon.telefunc import fast_upload
+from telethon.tl.types import DocumentAttributeVideo
 
 AUTH_USERS = []
 y = AU.split(",")
@@ -89,9 +94,19 @@ async def bash_command(event):
              hash = a.split(end)[0]
              await reply.edit(f"Downloading Zoom file\n\nIndex: `{(i + 1)}`\nDate: `{date}`")
              zoom_dl = 'https://api.zoom.us/rec/play/' + hash
-             filename = ytdl(zoom_dl)
+             filename = await ytdl(zoom_dl)
              await reply.edit("Preparing to Upload!")
-             await event.client.send_message(event.chat_id, final) 
+             metadata = video_metadata(filename)
+             width = metadata["width"]
+             height = metadata["height"]
+             duration = metadata["duration"]
+             attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, supports_streaming=True)]
+             UT = time.time()
+             caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
+             uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
+             await Drone.send_file(event.chat_id, uploader, caption=caption, thumb=screenshot, attributes=attributes, force_document=False)
+             await reply.edit("Sleeping for 5 seconds!")
+             time.sleep(5)
          except Exception as e:
              print(e)
              return await event.client.send_message(event.chat_id, f'Link no: {i + 1} Failed!')       
