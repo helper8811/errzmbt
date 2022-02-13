@@ -25,12 +25,15 @@ async def bash_command(event):
         start = (event.text).split(" ")[1]
         end = (event.text).split(" ")[2]  
     except IndexError:
-        return await event.reply("Incorrect format.")    
-    if not '.txt' in x.file.name:
+        return await event.reply("Incorrect format.")  
+    try:
+        if not '.txt' in x.file.name:
+            return await event.reply("Reply to a txt file only!")
+    except Exception:
         return await event.reply("Reply to a txt file only!")
     reply = await event.reply("Downloading!")          
     file = await event.client.download_media(x.media)
-    lines = file.readlines() 
+    lines = (open(file)).readlines() 
     await reply.edit("Processing!")
     for line in lines:
          i = lines.index(line)              
