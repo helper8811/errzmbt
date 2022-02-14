@@ -1,4 +1,4 @@
-import os, time, subprocess, asyncio
+import os, time, subprocess, asyncio, datetime
 from pathlib import Path
 
 from .. import bot as CA
@@ -19,8 +19,8 @@ for id in x:
 async def screenshot(video, time_stamp, sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
-    out = str(video).split(".")[0] + ".jpg"
-    cmd = f"ffmpeg -ss {time_stamp} -i {video} -vframes 1 {out} -y"
+    out = str(datetime.time) + ".jpg"
+    cmd = f"ffmpeg -ss {time_stamp} -i {video} -vframes 1 -vf scale=320:-1 {out} -y"
     process = await asyncio.create_subprocess_shell(
          cmd,
          stdout=asyncio.subprocess.PIPE,
