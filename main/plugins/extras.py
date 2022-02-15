@@ -180,7 +180,7 @@ async def bzoom(event):
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
              await reply.edit("Generating Screenshots...")
-             if os.path.isfile(f'{event.sender_id}.jpg')
+             if os.path.isfile(f'{event.sender_id}.jpg'):
                  srange = 4
              else:
                  srange = 3
