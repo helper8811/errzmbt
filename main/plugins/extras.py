@@ -173,9 +173,9 @@ async def bzoom(event):
              width = metadata["width"]
              height = metadata["height"]
              duration = metadata["duration"]
+             print(duration)
              attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, supports_streaming=True)]
              thumb = await screenshot(filename, duration/2, event.sender_id)
-             pictures.append(thumb)
              UT = time.time()
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
@@ -189,13 +189,19 @@ async def bzoom(event):
                  if os.path.isfile(f'{event.sender_id}.jpg'):
                      srange = 4
                  else:
-                     srange = 3
+                     if thumb is None:
+                         srange = 4
+                     else:
+                         pictures.append(thumb)
+                         srange = 3
                  for i in range(srange):
                      n = [7, 6, 5, 4, 3]
                      sshots = await screenshots(filename, duration/n[i])
-                     pictures.append(sshots)
+                     if sshots is not None:
+                         pictures.append(sshots)
                      await reply.edit(f" {i} sshots Generated.")
-                 await CA.send_file(event.chat_id, pictures, reply_to=msg.id)
+                 if len(pictures) > 0:
+                     await CA.send_file(event.chat_id, pictures, reply_to=msg.id)
              await reply.edit("Sleeping for 5 seconds!")
              time.sleep(5)
          except Exception as e:
