@@ -48,6 +48,34 @@ async def screenshot(video, time_stamp, sender):
     else:
         None
         
+ async def screenshots(video, time_stamp):
+    out = dt.now().isoformat("_", "seconds") + ".jpg"
+    cmd = ["ffmpeg",
+           "-ss",
+           f"{time_stamp}", 
+           "-i",
+           f"{video}",
+           "-vframes"
+           "1", 
+           f"{out}",
+           "-y"
+          ]
+    print(cmd)
+    process = await asyncio.create_subprocess_exec(
+        *cmd,
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE
+    )
+        
+    stdout, stderr = await process.communicate()
+    x = stderr.decode().strip()
+    y = stdout.decode().strip()
+    print(x)
+    print(y)
+    if os.path.isfile(out):
+        return out
+    else:
+        None       
 @CA.on(events.NewMessage(incoming=True, pattern=".exzoom"))
 async def exzoom(event):
     if not f'{event.sender_id}' in AUTH:
@@ -90,6 +118,7 @@ async def exzoom(event):
                           
 @CA.on(events.NewMessage(incoming=True, pattern=".bzoom"))
 async def bzoom(event):
+    pictures = []
     if not f'{event.sender_id}' in AUTH:
         return
     if not event.is_reply:
@@ -97,9 +126,16 @@ async def bzoom(event):
         return
     x = await event.get_reply_message()
     ss = False
+    srange = 4
     try:
         start = (event.text).split(" ")[1]
         end = (event.text).split(" ")[2]
+        if len((event.text).split(" ")) == 4:
+            ss = (event.text).split(" ")[3]
+            if ss != 'ss':
+                return await event.reply("Incorrect format.")  
+            else:
+                ss = True
     except IndexError:
         return await event.reply("Incorrect format.")  
     try:
@@ -139,14 +175,30 @@ async def bzoom(event):
              duration = metadata["duration"]
              attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, supports_streaming=True)]
              thumb = await screenshot(filename, duration/2, event.sender_id)
+             pictures.append(thumb)
              UT = time.time()
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
-             await CA.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
-             await reply.edit("Sleeping for 5 seconds!")
-             time.sleep(5)
+             await reply.edit("Generating Screenshots...")
+             if os.path.isfile(f'{event.sender_id}.jpg')
+                 srange = 4
+             else:
+                 srange = 3
+             for i in range(srange):
+                 n = [7, 6, 5, 4, 3]
+                 sshots = await screenshots(filename, duration/n[i])
+                 pictures.append(sshots)
+                 await reply.edit(f" {i} sshots Generated.")
+             msg = await CA.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
          except Exception as e:
              print(e)
-             return await event.client.send_message(event.chat_id, f'Link no: {i + 1} Failed!')             
+             return await event.client.send_message(event.chat_id, f'Link no: {i + 1} Failed!')  
+         try:
+             await CA.send_file(event.chat_id, pictures, reply_to=msg.id)
+             await reply.edit("Sleeping for 5 seconds!")
+             time.sleep(5)
+        except Exception as e:
+            print(e)
+            return await event.client.send_message(event.chat_id, f'Screenshots for Link no: {i + 1} Failed!')  
     await reply.delete()
     await event.client.send_message(event.chat_id, f'`{len(links)}` uploaded Successfully!')
