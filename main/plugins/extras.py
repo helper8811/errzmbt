@@ -130,7 +130,7 @@ async def bzoom(event):
         return
     x = await event.get_reply_message()
     ss = False
-    srange = 4
+    srange = 9
     try:
         start = (event.text).split(" ")[1]
         end = (event.text).split(" ")[2]
@@ -190,23 +190,16 @@ async def bzoom(event):
          try:
              if ss == True:
                  await reply.edit("Generating Screenshots...")
-                 if os.path.isfile(f'{event.sender_id}.jpg'):
-                     srange = 4
-                 else:
-                     if thumb is None:
-                         srange = 4
-                     else:
-                         pictures.append(thumb)
-                         srange = 3
                  for i in range(srange):
-                     n = [7, 6, 5, 4, 3]
+                     n = [9, 8, 7, 6, 5, 4, 3, 2, 1.5, 1.25]
                      dd = hhmmss(int(duration)/n[i])
                      sshots = await screenshots(filename, dd)
                      if sshots is not None:
                          pictures.append(sshots)
-                     await reply.edit(f" {i} sshots Generated.")
+                     await reply.edit(f" {i+1} sshots Generated.")
                  if len(pictures) > 0:
-                     await CA.send_file(event.chat_id, pictures, reply_to=msg.id)
+                     scaption = f"screenshots for `{filename}` on date of `{date}` at index no `{i+1}`."
+                     await CA.send_file(event.chat_id, pictures, caption=scaption, reply_to=msg.id)
              await reply.edit("Sleeping for 5 seconds!")
              time.sleep(5)
          except Exception as e:
