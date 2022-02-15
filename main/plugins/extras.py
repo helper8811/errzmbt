@@ -48,7 +48,7 @@ async def screenshot(video, time_stamp, sender):
     else:
         None
         
- async def screenshots(video, time_stamp):
+async def screenshots(video, time_stamp):
     out = dt.now().isoformat("_", "seconds") + ".jpg"
     cmd = ["ffmpeg",
            "-ss",
