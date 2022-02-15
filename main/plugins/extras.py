@@ -17,6 +17,10 @@ x = AU.split(",")
 for id in x:
     AUTH.append(id)
     
+def hhmmss(seconds):
+    x = time.strftime('%H:%M:%S',time.gmtime(seconds))
+    return x
+
 async def screenshot(video, time_stamp, sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
@@ -173,9 +177,9 @@ async def bzoom(event):
              width = metadata["width"]
              height = metadata["height"]
              duration = metadata["duration"]
-             print(duration)
+             d = hhmmss(int(duration))
              attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, supports_streaming=True)]
-             thumb = await screenshot(filename, duration/2, event.sender_id)
+             thumb = await screenshot(filename, d/2, event.sender_id)
              UT = time.time()
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
@@ -196,7 +200,7 @@ async def bzoom(event):
                          srange = 3
                  for i in range(srange):
                      n = [7, 6, 5, 4, 3]
-                     sshots = await screenshots(filename, duration/n[i])
+                     sshots = await screenshots(filename, d/n[i])
                      if sshots is not None:
                          pictures.append(sshots)
                      await reply.edit(f" {i} sshots Generated.")
