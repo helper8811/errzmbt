@@ -179,26 +179,27 @@ async def bzoom(event):
              UT = time.time()
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
-             await reply.edit("Generating Screenshots...")
-             if os.path.isfile(f'{event.sender_id}.jpg'):
-                 srange = 4
-             else:
-                 srange = 3
-             for i in range(srange):
-                 n = [7, 6, 5, 4, 3]
-                 sshots = await screenshots(filename, duration/n[i])
-                 pictures.append(sshots)
-                 await reply.edit(f" {i} sshots Generated.")
              msg = await CA.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
          except Exception as e:
              print(e)
              return await event.client.send_message(event.chat_id, f'Link no: {i + 1} Failed!')  
          try:
-             await CA.send_file(event.chat_id, pictures, reply_to=msg.id)
+             if ss == True:
+                 await reply.edit("Generating Screenshots...")
+                 if os.path.isfile(f'{event.sender_id}.jpg'):
+                     srange = 4
+                 else:
+                     srange = 3
+                 for i in range(srange):
+                     n = [7, 6, 5, 4, 3]
+                     sshots = await screenshots(filename, duration/n[i])
+                     pictures.append(sshots)
+                     await reply.edit(f" {i} sshots Generated.")
+                 await CA.send_file(event.chat_id, pictures, reply_to=msg.id)
              await reply.edit("Sleeping for 5 seconds!")
              time.sleep(5)
          except Exception as e:
-            print(e)
-            return await event.client.send_message(event.chat_id, f'Screenshots for Link no: {i + 1} Failed!')  
+             print(e)
+             return await event.client.send_message(event.chat_id, f'Screenshots for Link no: {i + 1} Failed!')  
     await reply.delete()
     await event.client.send_message(event.chat_id, f'`{len(links)}` uploaded Successfully!')
