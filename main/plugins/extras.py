@@ -20,10 +20,17 @@ for id in x:
 async def screenshot(video, time_stamp, sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
-    name = dt.now().isoformat("_", "seconds") + video.split(".")[-1]
-    os.rename(video, name) 
     out = dt.now().isoformat("_", "seconds") + ".jpg"
-    cmd = f'ffmpeg -ss {time_stamp} -i {name} -vframes 1 {out} -y'.split(" ")
+    cmd = ["ffmpeg",
+           "-ss",
+           f"{time_stamp}", 
+           "-i",
+           f"{video}",
+           "-vframes"
+           "1", 
+           f"{out}",
+           "-y"
+          ]
     print(cmd)
     process = await asyncio.create_subprocess_exec(
         *cmd,
@@ -36,7 +43,6 @@ async def screenshot(video, time_stamp, sender):
     y = stdout.decode().strip()
     print(x)
     print(y)
-    os.rename(name, video) 
     if os.path.isfile(out):
         return out
     else:
