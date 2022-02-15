@@ -3,7 +3,7 @@ from pathlib import Path
 from datetime import datetime as dt
 
 from .. import bot as CA
-from .. import AU
+from .. import AU, LCHAT
 
 from ethon.uploader import ytdl, weburl
 from ethon.pyfunc import video_metadata
@@ -82,6 +82,8 @@ async def screenshots(video, time_stamp):
         None       
 @CA.on(events.NewMessage(incoming=True, pattern=".exzoom"))
 async def exzoom(event):
+    if not event.chat_id == LCHAT:
+        return
     if not f'{event.sender_id}' in AUTH:
         return
     if not event.is_reply:
@@ -122,6 +124,8 @@ async def exzoom(event):
                           
 @CA.on(events.NewMessage(incoming=True, pattern=".bzoom"))
 async def bzoom(event):
+    if not event.chat_id == LCHAT:
+        return
     pictures = []
     if not f'{event.sender_id}' in AUTH:
         return
