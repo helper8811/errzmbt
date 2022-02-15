@@ -197,7 +197,7 @@ async def bzoom(event):
              await CA.send_file(event.chat_id, pictures, reply_to=msg.id)
              await reply.edit("Sleeping for 5 seconds!")
              time.sleep(5)
-        except Exception as e:
+         except Exception as e:
             print(e)
             return await event.client.send_message(event.chat_id, f'Screenshots for Link no: {i + 1} Failed!')  
     await reply.delete()
