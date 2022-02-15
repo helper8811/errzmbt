@@ -16,13 +16,13 @@ x = AU.split(",")
 for id in x:
     AUTH.append(id)
     
-async def screenshot(video, time_stamp, sender):
+async def screenshot(video, sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
-    out = f'{video.split(".")[0]} + .jpg'
-    cmd = f"ffmpeg -ss {time_stamp} -i {video} -vframes 1 -vf scale=320:-1 {out} -y"
-    process = await asyncio.create_subprocess_shell(
-         cmd,
+    out = str(video).split(".")[0] + ".jpg"
+    cmd = (f"ffmpeg -ss 00:15:00 -i {video} -vframes 1 {out} -y").split(" ")
+    process = await asyncio.create_subprocess_exec(
+         *cmd,
          stdout=asyncio.subprocess.PIPE,
          stderr=asyncio.subprocess.PIPE)
         
@@ -31,7 +31,7 @@ async def screenshot(video, time_stamp, sender):
     y = stdout.decode().strip()
     print(x)
     print(y)
-    if os.path.isfile(out):
+    if os.path.exists(str(Path(out))):
         return out
     else:
         None
@@ -125,7 +125,7 @@ async def bzoom(event):
              height = metadata["height"]
              duration = metadata["duration"]
              attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, supports_streaming=True)]
-             thumb = await screenshot(filename, duration/2, event.sender_id)
+             thumb = await screenshot(filename, event.sender_id)
              UT = time.time()
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
