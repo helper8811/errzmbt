@@ -26,7 +26,7 @@ async def screenshot(video, time_stamp, sender):
            f"{time_stamp}", 
            "-i",
            f"{video}",
-           "-vframes"
+           "-frames:v"
            "1", 
            f"{out}",
            "-y"
@@ -55,7 +55,7 @@ async def screenshot(video, time_stamp, sender):
            f"{time_stamp}", 
            "-i",
            f"{video}",
-           "-vframes"
+           "-frames:v"
            "1", 
            f"{out}",
            "-y"
