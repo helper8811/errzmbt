@@ -17,6 +17,11 @@ x = AU.split(",")
 for id in x:
     AUTH.append(id)
     
+LC = []
+x = LCHAT.split(",")
+for id in x:
+    LC.append(int(id))
+    
 def hhmmss(seconds):
     x = time.strftime('%H:%M:%S',time.gmtime(seconds))
     return x
@@ -82,7 +87,7 @@ async def screenshots(video, time_stamp):
         None       
 @CA.on(events.NewMessage(incoming=True, pattern=".exzoom"))
 async def exzoom(event):
-    if not event.chat_id == LCHAT:
+    if not event.chat_id in LC:
         return
     if not f'{event.sender_id}' in AUTH:
         return
@@ -124,7 +129,7 @@ async def exzoom(event):
                           
 @CA.on(events.NewMessage(incoming=True, pattern=".bzoom"))
 async def bzoom(event):
-    if not event.chat_id == LCHAT:
+    if not event.chat_id in LC:
         return
     pictures = []
     if not f'{event.sender_id}' in AUTH:
