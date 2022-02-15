@@ -17,13 +17,13 @@ x = AU.split(",")
 for id in x:
     AUTH.append(id)
     
-async def screenshot(video, sender):
+async def screenshot(video, time_stamp, sender):
     if os.path.exists(f'{sender}.jpg'):
         return f'{sender}.jpg'
     name = dt.now().isoformat("_", "seconds") + video.split(".")[-1]
     os.rename(video, name) 
     out = dt.now().isoformat("_", "seconds") + ".jpg"
-    cmd = f'ffmpeg -ss 00:15:00 -i """{name}""" -vframes 1 """{out}""" -y'.split(" ")
+    cmd = f'ffmpeg -ss {time_stamp} -i {name} -vframes 1 {out} -y'.split(" ")
     print(cmd)
     process = await asyncio.create_subprocess_exec(
         *cmd,
@@ -90,9 +90,10 @@ async def bzoom(event):
         await event.reply("Reply to any txt file!")
         return
     x = await event.get_reply_message()
+    ss = False
     try:
         start = (event.text).split(" ")[1]
-        end = (event.text).split(" ")[2]  
+        end = (event.text).split(" ")[2]
     except IndexError:
         return await event.reply("Incorrect format.")  
     try:
@@ -131,7 +132,7 @@ async def bzoom(event):
              height = metadata["height"]
              duration = metadata["duration"]
              attributes = [DocumentAttributeVideo(duration=duration, w=width, h=height, supports_streaming=True)]
-             thumb = await screenshot(filename, event.sender_id)
+             thumb = await screenshot(filename, duration/2, event.sender_id)
              UT = time.time()
              caption = f'Name: `{filename}`' + f"\n\nIndex: `{(i + 1)}`\nDate: `{date}`" + "\n\n**By @MaheshChauhan**"
              uploader = await fast_upload(f'{filename}', f'{filename}', UT, CA, reply, '**UPLOADING:**')      
