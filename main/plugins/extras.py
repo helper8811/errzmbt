@@ -131,7 +131,6 @@ async def exzoom(event):
 async def bzoom(event):
     if not event.chat_id in LC:
         return
-    pictures = []
     if not f'{event.sender_id}' in AUTH:
         return
     if not event.is_reply:
@@ -168,6 +167,7 @@ async def bzoom(event):
         if 'http' in line:
             links.append(line)
     for i in range(len(links)):
+         pictures = []
          try: 
              try:
                  link = links[i]
