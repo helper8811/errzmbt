@@ -206,9 +206,9 @@ async def bzoom(event):
                      if sshots is not None:
                          pictures.append(sshots)
                      await reply.edit(f" {i+1} sshots Generated.")
-                 if len(pictures) > 0:
-                     scaption = f"screenshots for `{filename}` on date of `{date}` at index no `{i+1}`."
-                     await CA.send_file(event.chat_id, pictures, caption=scaption, reply_to=msg.id)
+             if len(pictures) > 0:
+                 scaption = f"screenshots for `{filename}` on date of `{date}` at index no `{i+1}`."
+                 await CA.send_file(event.chat_id, pictures, caption=scaption, reply_to=msg.id)
              await reply.edit("Sleeping for 5 seconds!")
              time.sleep(5)
          except Exception as e:
