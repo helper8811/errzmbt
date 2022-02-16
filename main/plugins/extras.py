@@ -199,13 +199,13 @@ async def bzoom(event):
          try:
              if ss == True:
                  await reply.edit("Generating Screenshots...")
-                 for i in range(srange):
+                 for Y in range(srange):
                      n = [9, 8, 7, 6, 5, 4, 3, 2, 1.5, 1.25]
-                     dd = hhmmss(int(duration)/n[i])
+                     dd = hhmmss(int(duration)/n[Y])
                      sshots = await screenshots(filename, dd)
                      if sshots is not None:
                          pictures.append(sshots)
-                     await reply.edit(f" {i+1} sshots Generated.")
+                     await reply.edit(f" {Y+1} sshots Generated.")
              if len(pictures) > 0:
                  scaption = f"screenshots for `{filename}` on date of `{date}` at index no `{i+1}`."
                  await CA.send_file(event.chat_id, pictures, caption=scaption, reply_to=msg.id)
