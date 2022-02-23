@@ -4,12 +4,8 @@ RUN mkdir ./app
 RUN chmod 777 /app
 WORKDIR /app
 
-RUN apt -qq update --fix-missing
-RUN apt -qq install -y git \
-    ffmpeg \
-    libsndfile1-dev \
-    python3-pip \
-    
+RUN apt -qq update && apt -qq install -y git python3 ffmpeg libsndfile1-dev python3-pip
+
 COPY . .
 RUN pip3 install --no-cache-dir -r requirements.txt
 
