@@ -1,6 +1,7 @@
 #ChauhanMahesh/Vasusen/DroneBots/COL
 from telethon.sessions import StringSession
 from telethon import TelegramClient
+from pyrogram import Client
 from decouple import config
 import logging
 import time
@@ -20,3 +21,6 @@ LCHAT = config("LCHAT", default=None)
 #connection
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
 
+pbot = Client(session_name='pbot', api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN) 
+
+pbot.start()
