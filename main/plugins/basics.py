@@ -62,9 +62,7 @@ async def joined(event):
         if x is True:
             await CA.send_message(chat , f'`ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴅʀᴏɴᴇ sᴜᴘᴘᴏʀᴛ`\n\n👤 : {mention}\n\n🆔 : `{user.id}`\n\nGreetings by @MaheshChauhan.',
                                  buttons=[
-                                     [
-                                      Button.url("Association", url="t.me/thechariotoflight"),
-                                      Button.url("Updates", url="t.me/DroneBots")]])                                              
+                                     [Button.url("Updates", url="t.me/DroneBots")]])                                              
         else:
             return  
     
