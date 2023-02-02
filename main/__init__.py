@@ -13,7 +13,7 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 API_ID = 12665045
 API_HASH = "d437379dcebbc0a422211503956d8194"
 BOT_TOKEN = "6009441071:AAHoB7Jf3CRLTcJlsEcUyVzPKm7I-YwLu7I"
-SESSION = config("AQDCiriaFyuy_nKp5UbrtyDCIiZ9R6jWnT0GNxo3e4xL_LZ6RQrlzSiupopLvHzd4SgjW1zZx5JRFeQqHhfTUz2-zlYRkx53rj7Us0pGdIKiQCQDw6V0m9kOVtYR4QsUjt5PcUmL9JFHJH2GXSf3NAXV0-XNaliY_vphUnYI7zQkBjgd7a5ktXQxnfq-kBswHDEldaqhs-xA52kVpR37h41VRFiPV2WLwRqOb7hhTuNT6pk5A85g1d3hEqQKx1KEb3hx7GMxLYqsIhuLXdzphlu7ozAElR36bOCwnivhLYlDOLYqWtUh1NxMAST4voPwgbF-4Bv88dRjyu56eMAyzIm6AAAAATs_hjgA", default=None)
+SESSION = config("SESSION", default=None)
 AU = config("5288986168", default=None)
 CHAT = config("1538922643", default=None, cast=int)
 LCHAT = config("1538922643", default=None)
