@@ -13,10 +13,10 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 API_ID = 12665045
 API_HASH = "d437379dcebbc0a422211503956d8194"
 BOT_TOKEN = "6009441071:AAHoB7Jf3CRLTcJlsEcUyVzPKm7I-YwLu7I"
-SESSION ="SESSION", default=None
-AU =5288986168
-CHAT ="1538922643"
-LCHAT ="1538922643"
+SESSION = "SESSION", default=None
+AU = 5288986168
+CHAT = "1538922643"
+LCHAT = "1538922643"
     
 #connection
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
