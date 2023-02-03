@@ -13,7 +13,7 @@ from telethon import events
 from telethon.tl.types import DocumentAttributeVideo
     
 AUTH = []
-x = AU.split("-1001538922643")
+x = AU.split(",")
 for id in x:
     AUTH.append(id)
     
