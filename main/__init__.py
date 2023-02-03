@@ -20,6 +20,3 @@ LCHAT = int("-1001538922643")
 #connection
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
 
-pbot = Client(session_name='pbot', api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN) 
-
-pbot.start()
