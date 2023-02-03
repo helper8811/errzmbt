@@ -1,0 +1,3 @@
+services:
+  drone-srcb:
+    build: .
