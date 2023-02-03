@@ -13,7 +13,7 @@ logging.basicConfig(format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s'
 API_ID = 12665045
 API_HASH = "d437379dcebbc0a422211503956d8194"
 BOT_TOKEN = "6102508301:AAERp4qMb-G5isww-mYcjprlDbZ4o3UT28U"
-AU = 5288986168
+AU = "5288986168"
 CHAT = int("-1001538922643")
 LCHAT = int("-1001538922643")
     
