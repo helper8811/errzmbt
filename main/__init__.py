@@ -15,7 +15,7 @@ API_HASH = "d437379dcebbc0a422211503956d8194"
 BOT_TOKEN = "6102508301:AAERp4qMb-G5isww-mYcjprlDbZ4o3UT28U"
 AU = "5288986168"
 CHAT = int("-1001538922643")
-LCHAT = int("-1001538922643")
+LCHAT = "-1001538922643"
     
 #connection
 bot = TelegramClient('bot', API_ID, API_HASH).start(bot_token=BOT_TOKEN) 
